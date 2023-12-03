@@ -5,30 +5,22 @@ using UnityEngine;
 public class PaddleScript : MonoBehaviour
 {
 
-    public Rigidbody2D paddleBody;
-    public float keyPressDrag;
-
+    public float paddleSpeed, movementRange;
 
     void Start()
     {
-        paddleBody = GetComponent<Rigidbody2D>();
+        
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if(Input.GetKey(KeyCode.LeftArrow) && transform.position.x > -movementRange)
         {
-            paddleBody.velocity = new Vector3(-keyPressDrag, 0, 0);
+            transform.position = new Vector2(transform.position.x - paddleSpeed * Time.deltaTime, transform.position.y);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) && transform.position.x < movementRange)
         {
-            paddleBody.velocity = new Vector3(keyPressDrag, 0, 0);
+            transform.position = new Vector2(transform.position.x + paddleSpeed * Time.deltaTime, transform.position.y);
         }
-        else
-        {
-            paddleBody.velocity = new Vector3(0, 0, 0);
-        }
-
     }
-
 }

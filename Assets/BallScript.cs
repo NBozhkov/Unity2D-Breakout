@@ -1,17 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
 public class BallScript : MonoBehaviour
 {
+    public PaddleScript paddleScr;
+
     public Rigidbody2D ballBody;
-    public float speed;
+    public float speed, changeDirStrenght;
 
     void Start()
     {
+        paddleScr = GameObject.FindGameObjectWithTag("Paddle").GetComponent<PaddleScript>();
+
         ballBody = GetComponent<Rigidbody2D>();
 
-        ballBody.velocity = new Vector3 (2, 2, 0);
+        ballBody.velocity = new Vector2(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(0.5f, 1f)).normalized * speed;
+
+
     }
 
     void Update()
@@ -23,7 +31,26 @@ public class BallScript : MonoBehaviour
     {
         if (collision.gameObject.name == "Paddle")
         {
-            Debug.Log("collision with paddle");
+            PaddleBounceAngle();
         }
     }
+
+    private void PaddleBounceAngle()
+    {
+        float distOffCenter = transform.position.x - paddleScr.transform.position.x;
+        float yVelocity;
+
+        if (distOffCenter < 0f)
+        {
+            yVelocity = changeDirStrenght + distOffCenter;
+        }
+        else
+        {
+             yVelocity = changeDirStrenght - distOffCenter;
+        }
+
+        ballBody.velocity = new Vector2(distOffCenter, yVelocity).normalized * speed;
+
+    }
+
 }
