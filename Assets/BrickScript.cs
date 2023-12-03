@@ -4,23 +4,66 @@ using UnityEngine;
 
 public class BrickScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public SpriteRenderer brickSprite;
+    public Color blue, green, yellow, orange, red, purple;
+
+    private float hitNeed;
     void Start()
+    {
+        brickSprite = GetComponent<SpriteRenderer>();
+
+
+    }
+
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetStage(float stage)
     {
-        
+        hitNeed = stage;
+
+        switch (hitNeed)
+        {
+            case 5:
+                brickSprite.color = red;
+                break;
+
+            case 4:
+                brickSprite.color = orange;
+                break;
+
+            case 3:
+                brickSprite.color = yellow;
+                break;
+
+            case 2:
+                brickSprite.color = green;
+                break;
+
+            case 1:
+                brickSprite.color = blue;
+                break;
+
+            case 0:
+                Destroy(gameObject);
+                break;
+
+            default:
+                brickSprite.color = purple;
+                break;
+
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Ball")
         {
-            Destroy(gameObject);
+            hitNeed--;
+            SetStage(hitNeed);
         }
     }
 

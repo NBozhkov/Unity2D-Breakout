@@ -155,9 +155,9 @@ MonoBehaviour:
   brick: {fileID: 6188134007941526130, guid: 116faedb2090b704c9c9e0c07ff8f76d, type: 3}
   xDist: 1.9
   yDist: 1.1
-  rowNum: 5
+  rowNum: 6
   colNum: 7
-  yStart: 0
+  yStart: -1
 --- !u!4 &70470377
 Transform:
   m_ObjectHideFlags: 0
@@ -802,9 +802,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paddleScr: {fileID: 0}
   ballBody: {fileID: 0}
-  speed: 10
+  minSpeed: 6
+  maxSpeed: 12
   changeDirStrenght: 1.5
   deadZone: -4.5
+  chanceForSpeedChange: 5
+  waitTime: 1
   gameOverScreen: {fileID: 381371060}
 --- !u!1 &1388976227
 GameObject:
