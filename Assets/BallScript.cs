@@ -9,7 +9,13 @@ public class BallScript : MonoBehaviour
     public PaddleScript paddleScr;
 
     public Rigidbody2D ballBody;
-    public float speed, changeDirStrenght, deadZone;
+    public float minSpeed, maxSpeed, changeDirStrenght, deadZone;
+    public int chanceForSpeedChange;
+    private float currentSpeed;
+
+    private float timer;
+    private bool waiting = true;
+    public float waitTime;
 
     public GameObject gameOverScreen;
 
@@ -19,29 +25,47 @@ public class BallScript : MonoBehaviour
 
         ballBody = GetComponent<Rigidbody2D>();
 
-        ballBody.velocity = new Vector2(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(0.5f, 1f)).normalized * speed;
     }
 
     void Update()
     {
+        if(timer < waitTime && waiting)
+        {
+            timer += Time.deltaTime;
+        }
+        else if (waiting)
+        {
+            waiting = false;
+
+            currentSpeed = minSpeed;
+            ballBody.velocity = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0.5f, 1f)).normalized * currentSpeed;
+        }
 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(UnityEngine.Random.Range(0, chanceForSpeedChange) == 0)
+        {
+            currentSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+            ballBody.velocity = ballBody.velocity.normalized * currentSpeed;
+        }
+
+
         if (collision.gameObject.name == "Paddle")
         {
-            PaddleBounceAngle();
+            BounceAngleCalculation();
         }
 
         else if (collision.gameObject.name == "Frame" && transform.position.y < deadZone)
         {
             gameOverScreen.SetActive(true);
             ballBody.velocity = new Vector2(0, 0);
+            paddleScr.paddleSpeed = 0;
         }
     }
 
-    private void PaddleBounceAngle()
+    private void BounceAngleCalculation()
     {
         float distOffCenter = transform.position.x - paddleScr.transform.position.x;
         float yVelocity;
@@ -55,7 +79,7 @@ public class BallScript : MonoBehaviour
              yVelocity = changeDirStrenght - distOffCenter;
         }
 
-        ballBody.velocity = new Vector2(distOffCenter, yVelocity).normalized * speed;
+        ballBody.velocity = new Vector2(distOffCenter, yVelocity).normalized * currentSpeed;
 
     }
 
