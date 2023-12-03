@@ -9,7 +9,9 @@ public class BallScript : MonoBehaviour
     public PaddleScript paddleScr;
 
     public Rigidbody2D ballBody;
-    public float speed, changeDirStrenght;
+    public float speed, changeDirStrenght, deadZone;
+
+    public GameObject gameOverScreen;
 
     void Start()
     {
@@ -18,8 +20,6 @@ public class BallScript : MonoBehaviour
         ballBody = GetComponent<Rigidbody2D>();
 
         ballBody.velocity = new Vector2(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(0.5f, 1f)).normalized * speed;
-
-
     }
 
     void Update()
@@ -32,6 +32,12 @@ public class BallScript : MonoBehaviour
         if (collision.gameObject.name == "Paddle")
         {
             PaddleBounceAngle();
+        }
+
+        else if (collision.gameObject.name == "Frame" && transform.position.y < deadZone)
+        {
+            gameOverScreen.SetActive(true);
+            ballBody.velocity = new Vector2(0, 0);
         }
     }
 

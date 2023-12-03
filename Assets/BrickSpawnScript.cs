@@ -20,8 +20,6 @@ public class BrickSpawnScript : MonoBehaviour
                 GameObject brickCopy = GameObject.Instantiate(brick);
 
                 brickCopy.transform.position = new Vector2(xDist * i + xStart, yDist * j + yStart);
-
-                Debug.Log(j*i + j);
             }
 
         }
