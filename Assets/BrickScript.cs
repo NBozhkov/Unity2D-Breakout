@@ -11,8 +11,6 @@ public class BrickScript : MonoBehaviour
     void Start()
     {
         brickSprite = GetComponent<SpriteRenderer>();
-
-
     }
 
     void Update()
@@ -20,12 +18,22 @@ public class BrickScript : MonoBehaviour
         
     }
 
-    public void SetStage(float stage)
+    public void SetHits(float stage)
     {
         hitNeed = stage;
 
+        SetStage();
+    }
+
+    private void SetStage()
+    {
         switch (hitNeed)
         {
+
+            case 6:
+                brickSprite.color = purple;
+                break;
+
             case 5:
                 brickSprite.color = red;
                 break;
@@ -46,12 +54,8 @@ public class BrickScript : MonoBehaviour
                 brickSprite.color = blue;
                 break;
 
-            case 0:
-                Destroy(gameObject);
-                break;
-
             default:
-                brickSprite.color = purple;
+                Destroy(gameObject);
                 break;
 
         }
@@ -63,7 +67,7 @@ public class BrickScript : MonoBehaviour
         if (collision.gameObject.name == "Ball")
         {
             hitNeed--;
-            SetStage(hitNeed);
+            SetStage();
         }
     }
 
