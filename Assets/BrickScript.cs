@@ -7,16 +7,22 @@ public class BrickScript : MonoBehaviour
     public SpriteRenderer brickSprite;
     public Color blue, green, yellow, orange, red, purple;
 
+    public BrickSpawnScript brickSpawnScr;
+
     private float hitNeed;
+
     void Start()
     {
         brickSprite = GetComponent<SpriteRenderer>();
+
+        brickSpawnScr = GameObject.FindGameObjectWithTag("SpawnBricks").GetComponent<BrickSpawnScript>();
     }
 
     void Update()
     {
         
     }
+
 
     public void SetHits(float stage)
     {
@@ -56,11 +62,15 @@ public class BrickScript : MonoBehaviour
 
             default:
                 Destroy(gameObject);
+
+                brickSpawnScr.SubstractFromBricks();
+
                 break;
 
         }
 
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

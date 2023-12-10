@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
+using UnityEngine.UI;
 
 public class BallScript : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class BallScript : MonoBehaviour
     public float waitTime;
 
     public GameObject gameOverScreen;
+    public Text gameOverText;
 
 
     void Start()
@@ -62,19 +64,31 @@ public class BallScript : MonoBehaviour
         {
             if (logic.LostHeart() == 0)
             {
-                gameOverScreen.SetActive(true);
-                ballBody.velocity = new Vector2(0, 0);
-                paddleScr.paddleSpeed = 0;
+                GameEnded("Game Over!");
             }
             else
             {
-                waiting = true;
-                ballBody.velocity = new Vector2(0, 0);
-                paddleScr.transform.position = new Vector2(0, paddleScr.transform.position.y);
-                transform.position = new Vector2(0, defaultYPos);
+                ResetBall();
             }
 
         }
+    }
+
+    public void GameEnded(string gameOverMessage)
+    {
+        gameOverText.text = gameOverMessage;
+        gameOverScreen.SetActive(true);
+
+        ballBody.velocity = new Vector2(0, 0);
+        paddleScr.paddleSpeed = 0;
+    }
+    
+    private void ResetBall()
+    {
+        waiting = true;
+        ballBody.velocity = new Vector2(0, 0);
+        paddleScr.transform.position = new Vector2(0, paddleScr.transform.position.y);
+        transform.position = new Vector2(0, defaultYPos);
     }
 
     private void RandSpeedChange()

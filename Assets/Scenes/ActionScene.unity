@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 70470376}
   m_Layer: 0
   m_Name: SpawnBricks
-  m_TagString: Untagged
+  m_TagString: SpawnBricks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,11 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brick: {fileID: 6188134007941526130, guid: 116faedb2090b704c9c9e0c07ff8f76d, type: 3}
+  rowNum: 1
+  colNum: 3
   xDist: 1.6
   yDist: 0.8
-  rowNum: 6
-  colNum: 7
   yStart: 0
+  ballScr: {fileID: 0}
 --- !u!4 &70470377
 Transform:
   m_ObjectHideFlags: 0
@@ -223,7 +224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784140996140850445, guid: c30d595d9784c7748b242efba095d3d9, type: 3}
       propertyPath: m_Name
-      value: Heart (1)
+      value: Heart 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -486,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784140996140850445, guid: c30d595d9784c7748b242efba095d3d9, type: 3}
       propertyPath: m_Name
-      value: Heart (2)
+      value: Heart 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -816,7 +817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784140996140850445, guid: c30d595d9784c7748b242efba095d3d9, type: 3}
       propertyPath: m_Name
-      value: Heart (3)
+      value: Heart 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -898,7 +899,7 @@ GameObject:
   - component: {fileID: 952378454}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1055,6 +1056,7 @@ MonoBehaviour:
   defaultYPos: -4
   waitTime: 1
   gameOverScreen: {fileID: 381371060}
+  gameOverText: {fileID: 521319316}
 --- !u!1 &1142703049 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1784140996140850445, guid: c30d595d9784c7748b242efba095d3d9, type: 3}
@@ -1468,7 +1470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784140996140850445, guid: c30d595d9784c7748b242efba095d3d9, type: 3}
       propertyPath: m_Name
-      value: Heart (4)
+      value: Heart 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1817,7 +1819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784140996140850445, guid: c30d595d9784c7748b242efba095d3d9, type: 3}
       propertyPath: m_Name
-      value: Heart
+      value: Heart 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

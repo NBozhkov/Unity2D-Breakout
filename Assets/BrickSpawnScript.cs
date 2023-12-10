@@ -2,16 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BrickSpawnScript : MonoBehaviour
 {
     public GameObject brick;
-    public float xDist, yDist, rowNum, colNum, yStart;
+    public int rowNum, colNum;
+    public float xDist, yDist, yStart;
+
+    private int brickNum;
+
+    public BallScript ballScr;
+
 
     void Start()
     {
-        float xStart = - (colNum - 1) * xDist / 2;
+        ballScr = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallScript>();
 
+
+        brickNum = rowNum * colNum;
+        float xStart = - (colNum - 1) * xDist / 2;
+        
         for(int i = 0; i < colNum; i++)
         {
 
@@ -28,9 +39,13 @@ public class BrickSpawnScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SubstractFromBricks()
     {
+        brickNum--;
         
+        if(brickNum <= 0)
+        {
+            ballScr.GameEnded("You Won!");
+        }
     }
 }
