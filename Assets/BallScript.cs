@@ -24,7 +24,7 @@ public class BallScript : MonoBehaviour
     public Text gameOverText;
 
 
-    void Start()
+    protected void Start()
     {
         paddleScr = GameObject.FindGameObjectWithTag("Paddle").GetComponent<PaddleScript>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
@@ -46,7 +46,7 @@ public class BallScript : MonoBehaviour
             timer = 0;
 
             currentSpeed = minSpeed;
-            ballBody.velocity = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0.5f, 1f)).normalized * currentSpeed;
+            ballBody.linearVelocity = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0.5f, 1f)).normalized * currentSpeed;
         }
 
     }
@@ -79,14 +79,14 @@ public class BallScript : MonoBehaviour
         gameOverText.text = gameOverMessage;
         gameOverScreen.SetActive(true);
 
-        ballBody.velocity = new Vector2(0, 0);
+        ballBody.linearVelocity = new Vector2(0, 0);
         paddleScr.paddleSpeed = 0;
     }
     
     private void ResetBall()
     {
         waiting = true;
-        ballBody.velocity = new Vector2(0, 0);
+        ballBody.linearVelocity = new Vector2(0, 0);
         paddleScr.transform.position = new Vector2(0, paddleScr.transform.position.y);
         transform.position = new Vector2(0, defaultYPos);
     }
@@ -96,7 +96,7 @@ public class BallScript : MonoBehaviour
         if (UnityEngine.Random.Range(0, chanceForSpeedChange) == 0)
         {
             currentSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
-            ballBody.velocity = ballBody.velocity.normalized * currentSpeed;
+            ballBody.linearVelocity = ballBody.linearVelocity.normalized * currentSpeed;
         }
     }
 
@@ -114,7 +114,7 @@ public class BallScript : MonoBehaviour
              yVelocity = changeDirStrenght - distOffCenter;
         }
 
-        ballBody.velocity = new Vector2(distOffCenter, yVelocity).normalized * currentSpeed;
+        ballBody.linearVelocity = new Vector2(distOffCenter, yVelocity).normalized * currentSpeed;
 
     }
 
