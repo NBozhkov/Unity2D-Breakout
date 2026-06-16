@@ -149,12 +149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brick: {fileID: 6188134007941526130, guid: 116faedb2090b704c9c9e0c07ff8f76d, type: 3}
-  rowNum: 10
-  colNum: 15
+  rowNum: 1
+  colNum: 5
   xDist: 1.6
   yDist: 0.8
   yStart: 0
-  ballScr: {fileID: 0}
 --- !u!4 &70470377
 Transform:
   m_ObjectHideFlags: 0
@@ -1045,9 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9db4e27c4b74c4dbc4082fedd03097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddleScr: {fileID: 0}
-  logic: {fileID: 0}
-  ballBody: {fileID: 0}
+  ballBody: {fileID: 952378450}
   minSpeed: 8
   maxSpeed: 10
   changeDirStrenght: 1.5
@@ -1671,8 +1668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31ff95d7533f444a9356b21b85b2f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paddleCollider: {fileID: 2073493813}
   paddleSpeed: 16
-  movementRange: 6
 --- !u!61 &2073493813
 BoxCollider2D:
   m_ObjectHideFlags: 0

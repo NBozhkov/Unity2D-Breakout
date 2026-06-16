@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class BrickScript : MonoBehaviour
 {
-    public SpriteRenderer brickSprite;
-    public Color blue, green, yellow, orange, red, purple;
-
-    public BrickSpawnScript brickSpawnScr;
+    [SerializeField] private SpriteRenderer brickSprite;
+    [SerializeField] private Color blue, green, yellow, orange, red, purple;
 
     private float hitNeed;
 
-    void Start()
+    private void Start()
     {
         brickSprite = GetComponent<SpriteRenderer>();
-
-        brickSpawnScr = GameObject.FindGameObjectWithTag("SpawnBricks").GetComponent<BrickSpawnScript>();
     }
 
-    void Update()
+    private void Update()
     {
         
     }
@@ -63,7 +59,7 @@ public class BrickScript : MonoBehaviour
             default:
                 Destroy(gameObject);
 
-                brickSpawnScr.SubstractFromBricks();
+                GameObject.FindGameObjectWithTag("SpawnBricks").GetComponent<BrickSpawnScript>()  .SubtractFromBricks();
 
                 break;
 

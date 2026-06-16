@@ -6,13 +6,12 @@ using UnityEngine;
 
 public class FrameScr : MonoBehaviour
 {
-    public EdgeCollider2D frame;
+    [SerializeField] private EdgeCollider2D frame;
 
-    void Start()
+    private void Start()
     {
-        Camera cam = Camera.main;
-        float h = cam.orthographicSize;
-        float w = h * cam.aspect;
+        float h = Camera.main.orthographicSize;
+        float w = h * Camera.main.aspect;
 
         Vector2[] tempPoints = frame.points;
         tempPoints[0] = new Vector2(- w,   h);

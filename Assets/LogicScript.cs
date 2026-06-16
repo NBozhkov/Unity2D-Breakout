@@ -7,32 +7,32 @@ using UnityEngine.SceneManagement;
 
 public class LogicScript : MonoBehaviour
 {
-    public float heartNum;
+    [SerializeField] private float heartNum;
 
-    public GameObject heart5, heart4, heart3, heart2, heart1;
+    [SerializeField] private GameObject heart5, heart4, heart3, heart2, heart1;
 
-    void Start()
+    private void Start()
     {
 
     }
 
 
-    void Update()
+    private void Update()
     {
 
     }
 
 
-    public float LostHeart()
+    public float RemoveHeart()
     {
         heartNum--;
 
-        RemoveHeart();
+        RemoveHeartOnScreen();
 
         return heartNum;
     }
 
-    private void RemoveHeart()
+    private void RemoveHeartOnScreen()
     {
         switch (heartNum)
         {
@@ -61,7 +61,7 @@ public class LogicScript : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("ActionScene");
+        SceneManager.LoadScene("ActionScene"); //it simultaneously unloads the copy
     }
 
     public void Quit()

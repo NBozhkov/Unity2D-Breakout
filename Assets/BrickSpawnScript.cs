@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class BrickSpawnScript : MonoBehaviour
 {
-    public GameObject brick;
-    public int rowNum, colNum;
-    public float xDist, yDist, yStart;
+    [SerializeField] private GameObject brick;
+    [SerializeField] private int rowNum, colNum;
+    [SerializeField] private float xDist, yDist, yStart;
 
     private int brickNum;
 
-    public BallScript ballScr;
+    private BallScript ballScr;
 
 
-    void Start()
+    private void Start()
     {
         ballScr = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallScript>();
 
@@ -39,7 +39,7 @@ public class BrickSpawnScript : MonoBehaviour
 
     }
 
-    public void SubstractFromBricks()
+    public void SubtractFromBricks()
     {
         brickNum--;
         

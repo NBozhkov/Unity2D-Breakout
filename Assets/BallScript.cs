@@ -7,33 +7,30 @@ using UnityEngine.UI;
 
 public class BallScript : MonoBehaviour
 {
-    public PaddleScript paddleScr;
-    public LogicScript logic;
+    private PaddleScript paddleScr;
 
-    public Rigidbody2D ballBody;
-    public float minSpeed, maxSpeed, changeDirStrenght, deadZone;
-    public int chanceForSpeedChange;
+    [SerializeField] private Rigidbody2D ballBody;
+    [SerializeField] private float minSpeed, maxSpeed, changeDirStrenght, deadZone;
+    [SerializeField] private int chanceForSpeedChange;
     private float currentSpeed;
 
-    public float defaultYPos;
+    [SerializeField] private float defaultYPos;
+    [SerializeField] private float waitTime;
     private float timer;
     private bool waiting = true;
-    public float waitTime;
 
-    public GameObject gameOverScreen;
-    public Text gameOverText;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private Text gameOverText;
 
 
-    protected void Start()
+    private void Start()
     {
-        paddleScr = GameObject.FindGameObjectWithTag("Paddle").GetComponent<PaddleScript>();
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
-        ballBody = GetComponent<Rigidbody2D>();
+        paddleScr = GameObject.Find("Paddle").GetComponent<PaddleScript>();
 
         transform.position = new Vector2(0, defaultYPos);
     }
 
-    void Update()
+    private void Update()
     {
         if(timer < waitTime && waiting)
         {
@@ -62,7 +59,8 @@ public class BallScript : MonoBehaviour
 
         else if (collision.gameObject.name == "Frame" && transform.position.y < paddleScr.transform.position.y)
         {
-            if (logic.LostHeart() == 0)
+            if ( GameObject.Find("Logic").GetComponent<LogicScript>() //gets Logic
+                .RemoveHeart() == 0 )
             {
                 GameEnded("Game Over!");
             }
@@ -80,7 +78,7 @@ public class BallScript : MonoBehaviour
         gameOverScreen.SetActive(true);
 
         ballBody.linearVelocity = new Vector2(0, 0);
-        paddleScr.paddleSpeed = 0;
+        paddleScr.enabled = false;
     }
     
     private void ResetBall()
