@@ -7,13 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class LogicScript : MonoBehaviour
 {
-    [SerializeField] private float heartNum;
+    [SerializeField] private int heartNum = 5;
+    private const int maxHeartNum = 5;
 
-    [SerializeField] private GameObject heart5, heart4, heart3, heart2, heart1;
+    [SerializeField] private GameObject[] hearts;
 
     private void Start()
     {
+        if (heartNum > maxHeartNum) heartNum = maxHeartNum;
+        else if (heartNum <= 0) heartNum = 1;
 
+        for (int i = heartNum; i < maxHeartNum; i++)
+            hearts[i].SetActive(false);        
     }
 
 
@@ -26,37 +31,9 @@ public class LogicScript : MonoBehaviour
     public float RemoveHeart()
     {
         heartNum--;
-
-        RemoveHeartOnScreen();
+        hearts[heartNum].SetActive(false);
 
         return heartNum;
-    }
-
-    private void RemoveHeartOnScreen()
-    {
-        switch (heartNum)
-        {
-            case 4:
-                heart5.SetActive(false);
-                break;
-
-            case 3:
-                heart4.SetActive(false);
-                break;
-
-            case 2:
-                heart3.SetActive(false);
-                break;
-
-            case 1:
-                heart2.SetActive(false);
-                break;
-
-            case 0:
-                heart1.SetActive(false);
-                break;
-
-        }
     }
 
     public void NewGame()

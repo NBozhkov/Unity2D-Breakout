@@ -258,7 +258,6 @@ GameObject:
   - component: {fileID: 348071601}
   - component: {fileID: 348071600}
   - component: {fileID: 348071599}
-  - component: {fileID: 348071602}
   m_Layer: 5
   m_Name: New Game Button
   m_TagString: Untagged
@@ -330,7 +329,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 348071602}
+      - m_Target: {fileID: 719502493}
         m_TargetAssemblyTypeName: LogicScript, Assembly-CSharp
         m_MethodName: NewGame
         m_Mode: 1
@@ -380,24 +379,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348071596}
   m_CullTransparentMesh: 1
---- !u!114 &348071602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348071596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6604c7537cb5c548804dd2d92ad2e64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heartNum: 0
-  heart5: {fileID: 0}
-  heart4: {fileID: 0}
-  heart3: {fileID: 0}
-  heart2: {fileID: 0}
-  heart1: {fileID: 0}
 --- !u!1 &381371060
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,12 +829,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6604c7537cb5c548804dd2d92ad2e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNum: 5
-  heart5: {fileID: 762610230}
-  heart4: {fileID: 1202292119}
-  heart3: {fileID: 1142703049}
-  heart2: {fileID: 124497206}
-  heart1: {fileID: 235403999}
+  heartNum: 2
+  hearts:
+  - {fileID: 235403999}
+  - {fileID: 124497206}
+  - {fileID: 1142703049}
+  - {fileID: 1202292119}
+  - {fileID: 762610230}
 --- !u!4 &719502494
 Transform:
   m_ObjectHideFlags: 0
@@ -1122,7 +1104,6 @@ GameObject:
   - component: {fileID: 1388976232}
   - component: {fileID: 1388976231}
   - component: {fileID: 1388976230}
-  - component: {fileID: 1388976233}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -1194,7 +1175,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1388976233}
+      - m_Target: {fileID: 719502493}
         m_TargetAssemblyTypeName: LogicScript, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -1244,24 +1225,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388976227}
   m_CullTransparentMesh: 1
---- !u!114 &1388976233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388976227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6604c7537cb5c548804dd2d92ad2e64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heartNum: 0
-  heart5: {fileID: 0}
-  heart4: {fileID: 0}
-  heart3: {fileID: 0}
-  heart2: {fileID: 0}
-  heart1: {fileID: 0}
 --- !u!1 &1490907617
 GameObject:
   m_ObjectHideFlags: 0
