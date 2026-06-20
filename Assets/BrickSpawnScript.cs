@@ -30,7 +30,7 @@ public class BrickSpawnScript : MonoBehaviour
             {
                 GameObject brickCopy = GameObject.Instantiate(brick);
 
-                brickCopy.GetComponent<BrickScript>().SetHits(j + 1);
+                brickCopy.GetComponent<BrickScript>().SetToughnessLevel(j + 1);
 
                 brickCopy.transform.position = new Vector2(xDist * i + xStart, yDist * j + yStart);
             }

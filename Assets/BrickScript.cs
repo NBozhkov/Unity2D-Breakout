@@ -5,31 +5,38 @@ using UnityEngine;
 public class BrickScript : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer brickSprite;
+    [SerializeField] [Range(1,6)] private int toughness;
     [SerializeField] private Color blue, green, yellow, orange, red, purple;
 
-    private float hitNeed;
+    private const int maxToughness = 6;
+
 
     private void Start()
     {
-        brickSprite = GetComponent<SpriteRenderer>();
-    }
 
+    }
     private void Update()
     {
         
     }
 
 
-    public void SetHits(float stage)
+    public void SetToughnessLevel(int toughnessLevel = -1)
     {
-        hitNeed = stage;
+        if (toughnessLevel > maxToughness)
+            toughness = maxToughness;
+        else if (toughnessLevel <= 0)
+            toughness = 1;
+        else
+            toughness = toughnessLevel;
+
 
         SetStage();
     }
 
     private void SetStage()
     {
-        switch (hitNeed)
+        switch (toughness)
         {
 
             case 6:
@@ -59,7 +66,7 @@ public class BrickScript : MonoBehaviour
             default:
                 Destroy(gameObject);
 
-                GameObject.FindGameObjectWithTag("SpawnBricks").GetComponent<BrickSpawnScript>()  .SubtractFromBricks();
+                GameObject.Find("SpawnBricks").GetComponent<BrickSpawnScript>()  .SubtractFromBricks();
 
                 break;
 
@@ -72,7 +79,7 @@ public class BrickScript : MonoBehaviour
     {
         if (collision.gameObject.name == "Ball")
         {
-            hitNeed--;
+            toughness--;
             SetStage();
         }
     }

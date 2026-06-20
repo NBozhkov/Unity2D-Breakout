@@ -1,0 +1,3 @@
+-make fixed aspect ratio of the playing field
+-make it compatible with all resolutions and aspect ratios
+-level creator
