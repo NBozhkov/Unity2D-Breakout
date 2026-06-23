@@ -11,7 +11,7 @@ public class PaddleScript : MonoBehaviour
     private float xAxisBorderSize;
     private void Start()
     {
-        xAxisBorderSize = Camera.main.orthographicSize * Camera.main.aspect;
+        xAxisBorderSize = GameObject.Find("Frame").GetComponent<EdgeCollider2D>().bounds.extents.x;
 
     }
 

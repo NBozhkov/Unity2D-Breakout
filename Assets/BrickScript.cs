@@ -66,7 +66,7 @@ public class BrickScript : MonoBehaviour
             default:
                 Destroy(gameObject);
 
-                GameObject.Find("SpawnBricks").GetComponent<BrickSpawnScript>()  .SubtractFromBricks();
+                GameObject.Find("Logic").GetComponent<LogicScript>().SubtractFromBricks();
 
                 break;
 

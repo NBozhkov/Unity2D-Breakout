@@ -7,18 +7,26 @@ using UnityEngine;
 public class FrameScr : MonoBehaviour
 {
     [SerializeField] private EdgeCollider2D frame;
+    [SerializeField] private GameObject frameSpriteL;
+    [SerializeField] private GameObject frameSpriteR;
 
     private void Start()
     {
         float h = Camera.main.orthographicSize;
-        float w = h * Camera.main.aspect;
 
         Vector2[] tempPoints = frame.points;
-        tempPoints[0] = new Vector2(- w,   h);
-        tempPoints[1] = new Vector2(- w, - h);
-        tempPoints[2] = new Vector2(  w, - h);
-        tempPoints[3] = new Vector2(  w,   h);
-        tempPoints[4] = new Vector2(- w,   h);
+        tempPoints[0] = new Vector2(- h,   h);
+        tempPoints[1] = new Vector2(- h, - h);
+        tempPoints[2] = new Vector2(  h, - h);
+        tempPoints[3] = new Vector2(  h,   h);
+        tempPoints[4] = new Vector2(- h,   h);
         frame.points = tempPoints;
+
+
+        frameSpriteL.transform.localScale = new Vector3( (Camera.main.aspect - 1) * 2 * h , 2 * h + 1, 1);
+        frameSpriteL.transform.position = new Vector2(-h * Camera.main.aspect, 0);
+
+        frameSpriteR.transform.localScale = frameSpriteL.transform.localScale;
+        frameSpriteR.transform.position = new Vector2(h * Camera.main.aspect, 0);
     }
 }

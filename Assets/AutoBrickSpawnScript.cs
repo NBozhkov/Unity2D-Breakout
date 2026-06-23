@@ -10,17 +10,17 @@ public class BrickSpawnScript : MonoBehaviour
     [SerializeField] private int rowNum, colNum;
     [SerializeField] private float xDist, yDist, yStart;
 
-    private int brickNum;
+    //private int brickNum;
 
-    private BallScript ballScr;
+    //private BallScript ballScr;
 
 
     private void Start()
     {
-        ballScr = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallScript>();
+        //ballScr = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallScript>();
 
 
-        brickNum = rowNum * colNum;
+        //brickNum = rowNum * colNum;
         float xStart = - (colNum - 1) * xDist / 2;
         
         for(int i = 0; i < colNum; i++)
@@ -39,13 +39,4 @@ public class BrickSpawnScript : MonoBehaviour
 
     }
 
-    public void SubtractFromBricks()
-    {
-        brickNum--;
-        
-        if(brickNum <= 0)
-        {
-            ballScr.GameEnded("You Won!");
-        }
-    }
 }

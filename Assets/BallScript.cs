@@ -3,31 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
-using UnityEngine.UI;
 
 public class BallScript : MonoBehaviour
 {
     private PaddleScript paddleScr;
 
     [SerializeField] private Rigidbody2D ballBody;
-    [SerializeField] private float minSpeed, maxSpeed, changeDirStrenght, deadZone;
-    [SerializeField] private int chanceForSpeedChange;
+    [SerializeField] private float defaultSpeed = 10, speedChangeCap = 1, changeDirStrenght = 1;
+    [SerializeField] [Range(0,100)] private int chanceForSpeedChange = 50;
     private float currentSpeed;
+    private float defaultYPos;
 
-    [SerializeField] private float defaultYPos;
-    [SerializeField] private float waitTime;
+    [SerializeField] private float waitTime = 2;
     private float timer;
     private bool waiting = true;
-
-    [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private Text gameOverText;
 
 
     private void Start()
     {
+        defaultYPos = transform.position.y;
         paddleScr = GameObject.Find("Paddle").GetComponent<PaddleScript>();
 
-        transform.position = new Vector2(0, defaultYPos);
     }
 
     private void Update()
@@ -42,46 +38,34 @@ public class BallScript : MonoBehaviour
 
             timer = 0;
 
-            currentSpeed = minSpeed;
-            ballBody.linearVelocity = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0.5f, 1f)).normalized * currentSpeed;
+            RandSpeedChange();
+            ballBody.linearVelocity = new Vector2( UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0.5f, 1f) ).normalized * currentSpeed;
         }
 
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        RandSpeedChange();
-
-        if (collision.gameObject.name == "Paddle")
+        if( ! (ballBody.bodyType == RigidbodyType2D.Static) )
         {
-            PaddleAngleCalc();
-        }
 
-        else if (collision.gameObject.name == "Frame" && transform.position.y < paddleScr.transform.position.y)
-        {
-            if ( GameObject.Find("Logic").GetComponent<LogicScript>() //gets Logic
-                .RemoveHeart() == 0 )
+            RandSpeedChange();
+
+            if (collision.gameObject.name == "Paddle")
             {
-                GameEnded("Game Over!");
+                SetBallPaddleHitAngle();
             }
-            else
+
+            else if (collision.gameObject.name == "Frame" && transform.position.y < paddleScr.transform.position.y)
             {
-                ResetBall();
+                GameObject.Find("Logic").GetComponent<LogicScript>().BallOut();
             }
 
         }
-    }
-
-    public void GameEnded(string gameOverMessage)
-    {
-        gameOverText.text = gameOverMessage;
-        gameOverScreen.SetActive(true);
-
-        ballBody.linearVelocity = new Vector2(0, 0);
-        paddleScr.enabled = false;
     }
     
-    private void ResetBall()
+    public void ResetBall()
     {
         waiting = true;
         ballBody.linearVelocity = new Vector2(0, 0);
@@ -89,31 +73,30 @@ public class BallScript : MonoBehaviour
         transform.position = new Vector2(0, defaultYPos);
     }
 
+    public void StopMotion()
+    {
+        ballBody.bodyType = RigidbodyType2D.Static;
+        paddleScr.enabled = false;
+    }
+
+
+
     private void RandSpeedChange()
     {
-        if (UnityEngine.Random.Range(0, chanceForSpeedChange) == 0)
+        if (UnityEngine.Random.Range(1, 100) <= chanceForSpeedChange)
         {
-            currentSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+            currentSpeed = UnityEngine.Random.Range(defaultSpeed - speedChangeCap, defaultSpeed + speedChangeCap);
             ballBody.linearVelocity = ballBody.linearVelocity.normalized * currentSpeed;
         }
     }
 
-    private void PaddleAngleCalc()
+
+    private void SetBallPaddleHitAngle()
     {
-        float distOffCenter = transform.position.x - paddleScr.transform.position.x;
-        float yVelocity;
-
-        if (distOffCenter < 0f)
-        {
-            yVelocity = changeDirStrenght + distOffCenter;
-        }
-        else
-        {
-             yVelocity = changeDirStrenght - distOffCenter;
-        }
-
-        ballBody.linearVelocity = new Vector2(distOffCenter, yVelocity).normalized * currentSpeed;
-
+        ballBody.linearVelocity = new Vector2
+            ( (transform.position.x - paddleScr.transform.position.x) * changeDirStrenght ,
+            paddleScr.GetComponent<BoxCollider2D>().bounds.extents.x )
+                .normalized * currentSpeed;
     }
 
 }

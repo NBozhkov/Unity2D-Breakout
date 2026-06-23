@@ -1,19 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LogicScript : MonoBehaviour
 {
+    [SerializeField] private int brickNum;
     [SerializeField] private int heartNum = 5;
     private const int maxHeartNum = 5;
 
     [SerializeField] private GameObject[] hearts;
 
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private Text gameOverText;
+
+    private BallScript ballScr;
+
     private void Start()
     {
+        ballScr = GameObject.Find("Ball").GetComponent<BallScript>();
+
+
+
         if (heartNum > maxHeartNum) heartNum = maxHeartNum;
         else if (heartNum <= 0) heartNum = 1;
 
@@ -27,14 +39,36 @@ public class LogicScript : MonoBehaviour
 
     }
 
+    public void SubtractFromBricks()
+    {
+        brickNum--;
 
-    public float RemoveHeart()
+        if (brickNum <= 0)
+        {
+            GameEnded("You Won!");
+        }
+    }
+
+
+
+    public void BallOut()
     {
         heartNum--;
         hearts[heartNum].SetActive(false);
 
-        return heartNum;
+        if (heartNum <= 0) GameEnded("Game Over!");
+
+        else ballScr.ResetBall();
     }
+
+    public void GameEnded(string gameOverMessage)
+    {
+        ballScr.StopMotion();
+
+        gameOverText.text = gameOverMessage;
+        gameOverScreen.SetActive(true);
+    }
+
 
     public void NewGame()
     {
