@@ -10,10 +10,9 @@ using UnityEngine.UI;
 public class LogicScript : MonoBehaviour
 {
     [SerializeField] private int brickNum;
-    [SerializeField] private int heartNum = 5;
-    private const int maxHeartNum = 5;
+    [SerializeField] [Range(1,5)]private int heartNum = 5;
 
-    [SerializeField] private GameObject[] hearts;
+    [SerializeField] private GameObject[] allHearts;
 
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private Text gameOverText;
@@ -26,11 +25,9 @@ public class LogicScript : MonoBehaviour
 
 
 
-        if (heartNum > maxHeartNum) heartNum = maxHeartNum;
-        else if (heartNum <= 0) heartNum = 1;
 
-        for (int i = heartNum; i < maxHeartNum; i++)
-            hearts[i].SetActive(false);        
+        for (int i = heartNum; i < allHearts.Length; i++)
+            allHearts[i].SetActive(false);        
     }
 
 
@@ -54,7 +51,7 @@ public class LogicScript : MonoBehaviour
     public void BallOut()
     {
         heartNum--;
-        hearts[heartNum].SetActive(false);
+        allHearts[heartNum].SetActive(false);
 
         if (heartNum <= 0) GameEnded("Game Over!");
 

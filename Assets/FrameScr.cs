@@ -24,9 +24,9 @@ public class FrameScr : MonoBehaviour
 
 
         frameSpriteL.transform.localScale = new Vector3( (Camera.main.aspect - 1) * 2 * h , 2 * h + 1, 1);
-        frameSpriteL.transform.position = new Vector2(-h * Camera.main.aspect, 0);
+        frameSpriteL.transform.position = new Vector3(-h * Camera.main.aspect, 0, frameSpriteL.transform.position.z);
 
         frameSpriteR.transform.localScale = frameSpriteL.transform.localScale;
-        frameSpriteR.transform.position = new Vector2(h * Camera.main.aspect, 0);
+        frameSpriteR.transform.position = new Vector3(h * Camera.main.aspect, 0, frameSpriteL.transform.position.z);
     }
 }
