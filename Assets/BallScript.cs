@@ -18,8 +18,6 @@ public class BallScript : MonoBehaviour
     private float defaultYPos;
 
     [SerializeField] private float waitTime = 2;
-    private float timer;
-    private bool waiting = true;
 
 
     private IEnumerator coroutine;
