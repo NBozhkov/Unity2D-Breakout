@@ -17,17 +17,23 @@ public class LogicScript : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private Text gameOverText;
 
+
     private BallScript ballScr;
+
+
 
     private void Start()
     {
-        ballScr = GameObject.Find("Ball").GetComponent<BallScript>();
+        ballScr = GameObject.Find("Ball").GetComponent<BallScript>(); // finds the first ball (script)
 
 
 
 
         for (int i = heartNum; i < allHearts.Length; i++)
-            allHearts[i].SetActive(false);        
+        {
+            allHearts[i].SetActive(false);
+        }
+        
     }
 
 
@@ -51,7 +57,7 @@ public class LogicScript : MonoBehaviour
     public void BallOut()
     {
         heartNum--;
-        allHearts[heartNum].SetActive(false);
+        allHearts[heartNum].transform.GetChild(0).gameObject.SetActive(false);
 
         if (heartNum <= 0) GameEnded("Game Over!");
 
