@@ -61,7 +61,11 @@ public class LogicScript : MonoBehaviour
 
         if (heartNum <= 0) GameEnded("Game Over!");
 
-        else ballScr.ResetBall();
+        else
+        {
+            ballScr.ResetBall();
+            ballScr.StartCoroutine(ballScr.StartGameWDelay());
+        }
     }
 
     public void GameEnded(string gameOverMessage)

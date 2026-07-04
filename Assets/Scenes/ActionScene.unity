@@ -1384,6 +1384,7 @@ MonoBehaviour:
   defaultSpeed: 10
   speedChangeCap: 1
   changeDirStrenght: 2
+  minVertAngle: 10
   chanceForSpeedChange: 100
   waitTime: 1
 --- !u!1 &1082628396 stripped
