@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class SlowdownFieldScript : MonoBehaviour
 {
-    [SerializeField] private float slowdownStartY = -2, slowdownMagnitude = 2;
+    [SerializeField] private float slowdownStartY = -3;
+    [SerializeField] [Range(0,1)] private float slowdownMagnitude = 0.5f;
     private float slowdownTimer = 0;
 
     [SerializeField] private SpriteRenderer slowdownFieldRenderer;
+    [SerializeField] private BoxCollider2D slowdownFieldCollider;
 
     private BallScript ballScr;
     private Rigidbody2D ballBody;
@@ -18,7 +20,7 @@ public class SlowdownFieldScript : MonoBehaviour
         ballBody = GameObject.Find("Ball").GetComponent<Rigidbody2D>();
 
         transform.position = new Vector2(0, - Camera.main.orthographicSize);
-        transform.localScale = new Vector2(2 * Camera.main.orthographicSize, Camera.main.orthographicSize + slowdownStartY);
+        transform.localScale = new Vector2(2 * Camera.main.orthographicSize, 2 * (Camera.main.orthographicSize + slowdownStartY) );
 
 
     }
@@ -31,8 +33,6 @@ public class SlowdownFieldScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("unshowing");
-
             DisableField();
         }
 
@@ -47,12 +47,14 @@ public class SlowdownFieldScript : MonoBehaviour
     {
         this.enabled = true;
         slowdownFieldRenderer.enabled = true;
+        slowdownFieldCollider.enabled = true;
 
     }
     private void DisableField()
     {
         this.enabled = false;
         slowdownFieldRenderer.enabled = false;
+        slowdownFieldCollider.enabled = false;
 
     }
 
@@ -72,32 +74,42 @@ public class SlowdownFieldScript : MonoBehaviour
 
     private void StartSlowDown()
     {
-        ballBody.linearVelocityY /= slowdownMagnitude;
-        
+        ballScr.baseSpeed = ballScr.GetDefaultBaseSpeed() * slowdownMagnitude;
+        ballScr.speedChangeCap = ballScr.GetDefaultSpeedChangeCap() * slowdownMagnitude;
+
+        ballScr.currentSpeed *= slowdownMagnitude;
+        ballBody.linearVelocity = ballBody.linearVelocity.normalized * ballScr.currentSpeed;
+
     }
     private void StopSlowDown()
     {
+        ballScr.baseSpeed = ballScr.GetDefaultBaseSpeed();
+        ballScr.speedChangeCap = ballScr.GetDefaultSpeedChangeCap();
+
+        ballScr.currentSpeed /= slowdownMagnitude;
+        ballBody.linearVelocity = ballBody.linearVelocity.normalized * ballScr.currentSpeed;
 
     }
 
-    //private IEnumerator SlowdownDurationTimer()
-    //{
-    //    yield return new WaitForSeconds(slowdownDuration);
-    //    StopSlowDown();
-    //}
 
 
-
-    private void OnTriggerEnter()
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("slowing");
 
-        // TODO: the visual effect
+        if(ballBody.bodyType == RigidbodyType2D.Dynamic)
+        {
+            StartSlowDown();
+        }
 
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("unslowing");
 
-        StartSlowDown();
-
-        //StartCoroutine(SlowdownDurationTimer());
-
+        if (ballBody.bodyType == RigidbodyType2D.Dynamic)
+        {
+            StopSlowDown();
+        }
     }
 }

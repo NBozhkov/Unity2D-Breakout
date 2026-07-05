@@ -16,7 +16,6 @@ public class SlowDownBrickScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("slowing");
 
         GameObject.Find("SlowdownField").GetComponent<SlowdownFieldScript>().AddToTimer(slowdownDuration);
 
