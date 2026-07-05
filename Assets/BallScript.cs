@@ -10,26 +10,30 @@ public class BallScript : MonoBehaviour
     private PaddleScript paddleScr;
 
     [SerializeField] private Rigidbody2D ballBody;
-    [SerializeField] private float defaultSpeed = 10, speedChangeCap = 1, changeDirStrenght = 1;
+
+    [SerializeField] private float defaultBaseSpeed = 10, defaultSpeedChangeCap = 1;
+    public float GetDefaultBaseSpeed(){ return defaultBaseSpeed; }
+    public float GetDefaultSpeedChangeCap(){ return defaultSpeedChangeCap; }
+    public float currentSpeed, baseSpeed, speedChangeCap;
+    [SerializeField] [Range(0,100)] private int chanceForSpeedChange = 50;
+
+    [SerializeField] private float changeDirStrenght = 2;
     [SerializeField] [Range(0,90)] private float minVertAngle = 10;
     private float minVertAngleInRad;
-    [SerializeField] [Range(0,100)] private int chanceForSpeedChange = 50;
-    private float currentSpeed;
-    private float defaultYPos;
 
     [SerializeField] private float waitTime = 2;
-
-
-    private IEnumerator coroutine;
+    private float defaultYPos;
 
 
     private void Start()
     {
-        defaultYPos = transform.position.y;
-        paddleScr = GameObject.Find("Paddle").GetComponent<PaddleScript>();
-
+        baseSpeed = defaultBaseSpeed;
+        speedChangeCap = defaultSpeedChangeCap;
         minVertAngleInRad = minVertAngle * Mathf.PI / 180f;
+        defaultYPos = transform.position.y;
 
+
+        paddleScr = GameObject.Find("Paddle").GetComponent<PaddleScript>();
 
 
         StartCoroutine(StartGameWDelay());
@@ -88,7 +92,7 @@ public class BallScript : MonoBehaviour
     {
         if (UnityEngine.Random.Range(1, 100) <= chanceForSpeedChange)
         {
-            currentSpeed = UnityEngine.Random.Range(defaultSpeed - speedChangeCap, defaultSpeed + speedChangeCap);
+            currentSpeed = UnityEngine.Random.Range(baseSpeed - speedChangeCap, baseSpeed + speedChangeCap);
             ballBody.linearVelocity = ballBody.linearVelocity.normalized * currentSpeed;
         }
     }
@@ -126,4 +130,7 @@ public class BallScript : MonoBehaviour
         ballBody.bodyType = RigidbodyType2D.Static;
         paddleScr.enabled = false;
     }
+
+
+
 }
