@@ -1,3 +1,6 @@
--make fixed aspect ratio of the playing field
--make it compatible with all resolutions and aspect ratios
++make fixed aspect ratio of the playing field
++make it compatible with all usable pc resolutions and aspect ratios
+-fiddle with particles (tnt explosion too)
+-add menu
 -level creator
+-create an autogenerating level with score

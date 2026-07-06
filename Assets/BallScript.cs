@@ -61,27 +61,16 @@ public class BallScript : MonoBehaviour
         if(ballBody.bodyType == RigidbodyType2D.Dynamic)
         {
 
-            if (collision.gameObject.name == "Frame" && transform.position.y < paddleScr.transform.position.y)
+            if (collision.gameObject.name == "Paddle")
             {
-                GameObject.Find("Logic").GetComponent<LogicScript>().BallOut();                
+                SetBallPaddleHitAngle();
             }
 
+            RandSpeedChange();
 
-            else
-            {
-
-                if (collision.gameObject.name == "Paddle")
-                {
-                    SetBallPaddleHitAngle();
-                }
-
-                RandSpeedChange();
-
-                RestrictBallVelAngle();
-            }
+            RestrictBallVelAngle();
 
         }
-
 
 
     }

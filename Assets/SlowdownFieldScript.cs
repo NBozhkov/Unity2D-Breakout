@@ -95,8 +95,6 @@ public class SlowdownFieldScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("slowing");
-
         if(ballBody.bodyType == RigidbodyType2D.Dynamic)
         {
             StartSlowDown();
@@ -105,8 +103,6 @@ public class SlowdownFieldScript : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("unslowing");
-
         if (ballBody.bodyType == RigidbodyType2D.Dynamic)
         {
             StopSlowDown();

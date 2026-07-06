@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BrickScript : MonoBehaviour
@@ -21,9 +22,14 @@ public class BrickScript : MonoBehaviour
 
             Destroy(gameObject);
 
-            GameObject.Find("Logic").GetComponent<LogicScript>().SubtractFromBricks();
-
         }
+    }
+
+    private void OnDestroy()
+    {
+
+        GameObject.Find("Logic").GetComponent<LogicScript>().SubtractFromBricks();
+
     }
 
 
