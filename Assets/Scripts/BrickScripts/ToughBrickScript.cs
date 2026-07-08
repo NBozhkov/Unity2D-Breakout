@@ -33,7 +33,6 @@ public class ToughBrickScript : MonoBehaviour
             if(toughness <= 0)
             {
                 Destroy(gameObject);
-                GameObject.Find("Logic").GetComponent<LogicScript>().SubtractFromBricks();
             }
             else
             {
@@ -44,4 +43,10 @@ public class ToughBrickScript : MonoBehaviour
 
 
     }
+
+    private void OnDestroy()
+    {
+        GameObject.Find("Logic").GetComponent<LogicScript>().SubtractFromBricks();
+    }
+
 }

@@ -1,5 +1,7 @@
 +make fixed aspect ratio of the playing field
 +make it compatible with all usable pc resolutions and aspect ratios
+-create at least 8 types of bricks
+	-add a brick that turns into multiple little bricks when hit 
 -fiddle with particles (tnt explosion too)
 -add menu
 -level creator

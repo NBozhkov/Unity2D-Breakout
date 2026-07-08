@@ -6,13 +6,17 @@ using UnityEngine;
 public class PaddleScript : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D paddleCollider;
-    [SerializeField] [Range(5, 50)] private float paddleSpeed;
+    [SerializeField][Range(5, 50)] private float paddleSpeed;
 
     private float xAxisBorderSize;
+
+    public Vector2 defaultPaddleScale { get; private set; }
+
     private void Start()
     {
         xAxisBorderSize = GameObject.Find("Frame").GetComponent<EdgeCollider2D>().bounds.extents.x;
 
+        defaultPaddleScale = transform.localScale;
     }
 
     private void Update()
@@ -38,4 +42,8 @@ public class PaddleScript : MonoBehaviour
                 transform.position = new Vector2(xAxisBorderSize - paddleCollider.bounds.extents.x, transform.position.y);
         }
     }
+
+
+
+
 }
